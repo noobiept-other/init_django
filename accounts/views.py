@@ -7,19 +7,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.forms import MyUserCreationForm, PrivateMessageForm
 from accounts.models import PrivateMessage
 from accounts.decorators import must_be_staff
-
-def get_message( request, context ):
-
-    """
-        Checks the session to see if there's a message, and if so adds to the context object (don't forget, it changes the object from where its called)
-    """
-
-    message = request.session.get( 'message' )
-
-    if message:
-
-        context[ 'message' ] = message
-        del request.session[ 'message' ]
+import init_django.utilities as utilities
 
 
 def new_account( request ):
@@ -57,7 +45,7 @@ def user_page( request, username ):
         'pageUser': user
     }
 
-    get_message( request, context )
+    utilities.get_message( request, context )
 
     return render( request, 'accounts/user_page.html', context )
 
@@ -83,6 +71,7 @@ def send_private_message( request, username ):
             message = PrivateMessage( receiver= user, sender= request.user, title= title, content= content )
             message.save()
 
+
             return HttpResponseRedirect( user.get_url() )
 
     else:
@@ -104,6 +93,8 @@ def check_message( request ):
     context = {
         'messages': messages
     }
+
+    utilities.get_message( request, context )
 
     return render( request, 'accounts/check_messages.html', context )
 
@@ -136,6 +127,7 @@ def remove_message( request, messageId ):
         return HttpResponseForbidden( "Not your message." )
 
     message.delete()
+    utilities.set_message( request, 'Message removed' )
 
     return HttpResponseRedirect( reverse( 'accounts:check_message' ) )
 
@@ -154,13 +146,13 @@ def set_moderator( request, username ):
     user.is_moderator = not user.is_moderator
     user.save()
 
-    request.session[ 'message' ] = 'Set/clear the moderator rights.'
+    utilities.set_message( request, 'Set/clear the moderator rights.' )
 
     return HttpResponseRedirect( user.get_url() )
 
 
 def password_changed( request ):
 
-    request.session[ 'message' ] = 'Password changed'
+    utilities.set_message( request, 'Password changed' )
 
     return HttpResponseRedirect( reverse( 'home' ) )
