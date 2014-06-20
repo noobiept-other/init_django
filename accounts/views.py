@@ -8,6 +8,20 @@ from accounts.forms import MyUserCreationForm, PrivateMessageForm
 from accounts.models import PrivateMessage
 from accounts.decorators import must_be_staff
 
+def get_message( request, context ):
+
+    """
+        Checks the session to see if there's a message, and if so adds to the context object (don't forget, it changes the object from where its called)
+    """
+
+    message = request.session.get( 'message' )
+
+    if message:
+
+        context[ 'message' ] = message
+        del request.session[ 'message' ]
+
+
 def new_account( request ):
 
     if request.method == 'POST':
@@ -42,6 +56,8 @@ def user_page( request, username ):
     context = {
         'pageUser': user
     }
+
+    get_message( request, context )
 
     return render( request, 'accounts/user_page.html', context )
 
@@ -138,4 +154,13 @@ def set_moderator( request, username ):
     user.is_moderator = not user.is_moderator
     user.save()
 
+    request.session[ 'message' ] = 'Set/clear the moderator rights.'
+
     return HttpResponseRedirect( user.get_url() )
+
+
+def password_changed( request ):
+
+    request.session[ 'message' ] = 'Password changed'
+
+    return HttpResponseRedirect( reverse( 'home' ) )

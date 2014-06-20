@@ -3,11 +3,12 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
 
-    url( '^new_account$', 'accounts.views.new_account', name= 'new_account' ),
-    url( '^login$', 'django.contrib.auth.views.login', { 'template_name': 'accounts/login.html' }, name= 'login' ),
-    url( '^logout$', 'django.contrib.auth.views.logout', name= 'logout' ),
-    url( '^change_password$', 'django.contrib.auth.views.password_change', { 'template_name': 'accounts/change_password.html', 'post_change_redirect': '/' }, name= 'change_password' ),
-    url( '^user/(?P<username>\w+)$', 'accounts.views.user_page', name= 'user_page' ),
+    url( r'^new_account$', 'accounts.views.new_account', name= 'new_account' ),
+    url( r'^login$', 'django.contrib.auth.views.login', { 'template_name': 'accounts/login.html' }, name= 'login' ),
+    url( r'^logout$', 'django.contrib.auth.views.logout', name= 'logout' ),
+    url( r'^change_password$', 'django.contrib.auth.views.password_change', { 'template_name': 'accounts/change_password.html', 'post_change_redirect': 'password_changed' }, name= 'change_password' ),
+    url( r'^password_changed$', 'accounts.views.password_changed', name= 'password_changed' ),
+    url( r'^user/(?P<username>\w+)$', 'accounts.views.user_page', name= 'user_page' ),
     url( r'^send_message/(?P<username>\w+)$', 'accounts.views.send_private_message', name= 'send_message' ),
     url( r'^check_message/$', 'accounts.views.check_message', name='check_message' ),
     url( r'^check_message/(?P<messageId>\w+)$', 'accounts.views.open_message', name= 'open_message' ),
