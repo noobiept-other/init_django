@@ -6,15 +6,19 @@
     <h2>
         {{ pageUser.username }}
 
-        {% if user.is_staff %}
-            <a href="{% url 'accounts:set_moderator' pageUser.username %}">
-                {% if pageUser.is_moderator %}
-                    un-mod
-                {% else %}
-                    mod
-                {% endif %}
-            </a>
-        {% endif %}
+        <ul class="horizontalList">
+            {% if user.is_staff %}
+            <li>
+                <a href="{% url 'accounts:set_moderator' pageUser.username %}">
+                    {% if pageUser.is_moderator %}
+                        un-mod
+                    {% else %}
+                        mod
+                    {% endif %}
+                </a>
+            </li>
+            {% endif %}
+        </ul>
     </h2>
 
     <p>User since: {{ pageUser.date_joined }} ({{ pageUser.date_joined|naturaltime }})</p>
