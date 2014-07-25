@@ -18,7 +18,7 @@ class PrivateMessage( models.Model ):
     sender = models.ForeignKey( settings.AUTH_USER_MODEL, related_name= 'sender' )
     title = models.TextField( max_length= 100 )
     content = models.TextField( max_length= 500 )
-    date_created = models.DateTimeField( help_text= 'Date Created', default= lambda: timezone.localtime(timezone.now()) )
+    date_created = models.DateTimeField( help_text= 'Date Created', default= lambda: timezone.localtime( timezone.now() ) )
 
     def __unicode__(self):
         return self.title
