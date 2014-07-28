@@ -49,7 +49,7 @@ def user_page( request, username ):
 
     return render( request, 'accounts/user_page.html', context )
 
-@login_required( login_url= 'accounts:login' )
+@login_required
 def send_private_message( request, username ):
 
     userModel = get_user_model()
@@ -85,7 +85,7 @@ def send_private_message( request, username ):
     return render( request, 'accounts/send_message.html', context )
 
 
-@login_required( login_url= 'accounts:login' )
+@login_required
 def check_message( request ):
 
     messages = request.user.privatemessage_set.all()
@@ -99,7 +99,7 @@ def check_message( request ):
     return render( request, 'accounts/check_messages.html', context )
 
 
-@login_required( login_url= 'accounts:login' )
+@login_required
 def open_message( request, messageId ):
 
     try:
@@ -114,7 +114,7 @@ def open_message( request, messageId ):
 
     return render( request, 'accounts/open_message.html', context )
 
-@login_required( login_url= 'accounts:login' )
+@login_required
 def remove_message( request, messageId ):
 
     try:

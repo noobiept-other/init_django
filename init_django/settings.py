@@ -109,6 +109,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'init_django.urls'
 
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
 LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'accounts.Account'
