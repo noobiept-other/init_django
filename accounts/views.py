@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.forms import MyUserCreationForm, PrivateMessageForm
 from accounts.models import PrivateMessage
 from accounts.decorators import must_be_staff
-import init_django.utilities as utilities
+from init_django import utilities
 
 
 def new_account( request ):
