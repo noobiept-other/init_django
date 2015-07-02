@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import login as django_login
 
 from accounts.forms import MyUserCreationForm, PrivateMessageForm
 from accounts.models import PrivateMessage
@@ -29,6 +30,14 @@ def new_account( request ):
     }
 
     return render( request, 'accounts/new_account.html', context )
+
+
+def login( request ):
+
+    context = {}
+    utilities.get_message( request, context )
+
+    return django_login( request, 'accounts/login.html', extra_context= context )
 
 
 def user_page( request, username ):
