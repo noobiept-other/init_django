@@ -20,6 +20,8 @@ def new_account( request ):
         if form.is_valid():
 
             form.save()
+            utilities.set_message( request, 'User created!' )
+
             return HttpResponseRedirect( reverse( 'accounts:login' ) )
 
     else:
@@ -80,6 +82,7 @@ def send_private_message( request, username ):
             message = PrivateMessage( receiver= user, sender= request.user, title= title, content= content )
             message.save()
 
+            utilities.set_message( request, 'Private message sent!' )
 
             return HttpResponseRedirect( user.get_url() )
 
@@ -136,7 +139,7 @@ def remove_message( request, messageId ):
         return HttpResponseForbidden( "Not your message." )
 
     message.delete()
-    utilities.set_message( request, 'Message removed' )
+    utilities.set_message( request, 'Message removed!' )
 
     return HttpResponseRedirect( reverse( 'accounts:check_message' ) )
 
@@ -155,13 +158,13 @@ def set_moderator( request, username ):
     user.is_moderator = not user.is_moderator
     user.save()
 
-    utilities.set_message( request, 'Set/clear the moderator rights.' )
+    utilities.set_message( request, 'Set/clear the moderator rights!' )
 
     return HttpResponseRedirect( user.get_url() )
 
 
 def password_changed( request ):
 
-    utilities.set_message( request, 'Password changed' )
+    utilities.set_message( request, 'Password changed!' )
 
     return HttpResponseRedirect( reverse( 'home' ) )
