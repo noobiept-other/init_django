@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 
 from init_django import utilities
 
+
 def home( request ):
 
     context = {

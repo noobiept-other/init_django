@@ -4,12 +4,19 @@ from django.conf import settings
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 
+
 class Account( AbstractUser ):
 
     is_moderator = models.BooleanField( default= False )
 
     def get_url(self):
         return reverse( 'accounts:user_page', args= [ self.username ] )
+
+    def has_moderator_rights(self):
+        if self.is_staff or self.is_moderator:
+            return True
+
+        return False
 
 
 class PrivateMessage( models.Model ):
@@ -24,4 +31,4 @@ class PrivateMessage( models.Model ):
         return self.title
 
     def get_url(self):
-        return reverse( 'accounts:open_message', args= [ self.id ] )
+        return reverse( 'accounts:message_open', args= [ self.id ] )

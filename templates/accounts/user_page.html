@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% load accounts %}
 
 {% block content %}
 
     <h2>
-        {{ pageUser.username }}
+        {{ pageUser|account_name }}
 
         <ul class="horizontalList">
+            {% if user.is_moderator or user.is_staff %}
+            <li>
+                <a href="{% url 'accounts:disable_confirm' pageUser.username %}">
+                    {% if pageUser.is_active %}
+                        disable
+                    {% else %}
+                        enable
+                    {% endif %}
+                </a>
+            </li>
+            {% endif %}
+
             {% if user.is_staff %}
             <li>
                 <a href="{% url 'accounts:set_moderator' pageUser.username %}">
@@ -17,6 +30,9 @@
                     {% endif %}
                 </a>
             </li>
+            <li>
+                <a href="{% url 'accounts:remove_confirm' pageUser.username %}">remove</a>
+            </li>
             {% endif %}
         </ul>
     </h2>
@@ -26,10 +42,10 @@
     {% if user.is_authenticated %}
         <ul>
         {% if user.username == pageUser.username %}
-            <li><a href="{% url 'accounts:check_message' %}">See messages</a></li>
+            <li><a href="{% url 'accounts:message_all' %}">See messages</a></li>
             <li><a href="{% url 'accounts:change_password' %}">change password</a></li>
         {% else %}
-            <li><a href="{% url 'accounts:send_message' pageUser.username %}">Send private message</a></li>
+            <li><a href="{% url 'accounts:message_send' pageUser.username %}">Send private message</a></li>
         {% endif %}
         </ul>
     {% endif %}
