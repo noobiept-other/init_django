@@ -31,7 +31,7 @@ class PrivateMessage( models.Model ):
     date_created = models.DateTimeField( help_text= 'Date Created', default= timezone.now )
     has_been_read = models.BooleanField( default= False )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_url(self):
