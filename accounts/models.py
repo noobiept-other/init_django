@@ -18,6 +18,9 @@ class Account( AbstractUser ):
 
         return False
 
+    def how_many_unread_messages(self):
+        return self.privatemessage_set.filter( has_been_read= False ).count()
+
 
 class PrivateMessage( models.Model ):
 
@@ -26,9 +29,13 @@ class PrivateMessage( models.Model ):
     title = models.TextField( max_length= 100 )
     content = models.TextField( max_length= 500 )
     date_created = models.DateTimeField( help_text= 'Date Created', default= timezone.now )
+    has_been_read = models.BooleanField( default= False )
 
     def __unicode__(self):
         return self.title
 
     def get_url(self):
         return reverse( 'accounts:message_open', args= [ self.id ] )
+
+    class Meta:
+        ordering = [ '-date_created' ]

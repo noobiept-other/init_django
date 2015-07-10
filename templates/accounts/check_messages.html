@@ -23,10 +23,16 @@
         </tr>
         {% for message in messages %}
             <tr class="clickableRow contentPreview" data-url="{{ message.get_url }}" data-content="{{ message.content|linebreaksbr|truncatewords:50 }}">
-                <td>{{ message.sender|account_name }}</td>
+                <td>
+                    {% if not message.has_been_read %}
+                        <span class="red" title="Unread message!">!</span>
+                    {% endif %}
+
+                    {{ message.sender|account_name }}
+                </td>
                 <td>{{ message.title|truncatewords:25 }}</td>
                 <td>{{ message.date_created|naturaltime }}</td>
-                <td><a href="{% url 'accounts:message_remove_confirm' message.id %}">X</a></td>
+                <td><a href="{% url 'accounts:message_remove_confirm' message.id %}" title="Remove Message">X</a></td>
             </tr>
         {% endfor %}
     </table>

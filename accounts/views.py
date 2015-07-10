@@ -61,7 +61,8 @@ def user_page( request, username ):
         raise Http404( "User doesn't exist." )
 
     context = {
-        'pageUser': user
+        'pageUser': user,
+        'unreadMessages': user.how_many_unread_messages()
     }
 
     utilities.get_message( request, context )
@@ -132,6 +133,10 @@ def message_open( request, messageId ):
 
     except PrivateMessage.DoesNotExist:
         raise Http404( "Couldn't find that message." )
+
+    if not message.has_been_read:
+        message.has_been_read = True
+        message.save( update_fields= [ 'has_been_read' ] )
 
     context = {
         'private_message': message
