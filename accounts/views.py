@@ -182,6 +182,26 @@ def message_remove( request, messageId ):
 
 
 @must_be_staff
+def set_moderator_confirm( request, username ):
+    """
+        Confirm giving/removing moderator rights to/from an user.
+    """
+    userModel = get_user_model()
+
+    try:
+        user = userModel.objects.get( username= username )
+
+    except userModel.DoesNotExist:
+        raise Http404( "User doesn't exist." )
+
+    else:
+        context = {
+            'user_to_change': user
+        }
+        return render( request, 'accounts/change_moderator.html', context )
+
+
+@must_be_staff
 def set_moderator( request, username ):
     """
         Give/remove moderator rights from an account.

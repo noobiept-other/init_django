@@ -22,7 +22,7 @@
 
             {% if user.is_staff %}
             <li>
-                <a href="{% url 'accounts:set_moderator' pageUser.username %}">
+                <a href="{% url 'accounts:set_moderator_confirm' pageUser.username %}">
                     {% if pageUser.is_moderator %}
                         un-mod
                     {% else %}

@@ -3,6 +3,7 @@
 em
     {
     font-weight: bold;
+    font-style: normal;
     }
 
 
@@ -18,6 +19,7 @@ em
     {
     background-color: rgba(201, 219, 237, 0.83);
     }
+
 
     /* Generic Classes */
 
@@ -37,32 +39,6 @@ em
 .red
     {
     color: red;
-    }
-
-
-    /* Accounts/User Page */
-
-.UserPageTable tr:nth-child(even), #CheckMessagesTable tr:nth-child(even)
-    {
-    background-color: #e6edeb;
-    }
-
-#CheckMessagesTable td:last-child
-    {
-    min-width: 10px;
-    }
-
-#CheckMessagesTable td
-    {
-    padding: 5px;
-    min-width: 200px;
-    position: relative;
-    }
-
-#PrivateMessage-title
-    {
-    background-color: aliceblue;
-    text-align: center;
     }
 
 .Accounts-disabled
@@ -98,4 +74,30 @@ em
     border-radius: 3px;
     box-shadow: 0 0 10px 0;
     padding: 5px;
+    }
+
+
+    /* Accounts/User Page */
+
+#CheckMessagesTable tr:nth-child(even)
+    {
+    background-color: #e6edeb;
+    }
+
+#CheckMessagesTable td
+    {
+    padding: 5px;
+    min-width: 200px;
+    position: relative;
+    }
+
+#CheckMessagesTable td:last-child
+    {
+    min-width: 10px;
+    }
+
+#PrivateMessage-title
+    {
+    background-color: aliceblue;
+    text-align: center;
     }

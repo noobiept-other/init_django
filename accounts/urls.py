@@ -7,6 +7,9 @@ urlpatterns = [
     url( r'^login$', 'accounts.views.login', name= 'login' ),
     url( r'^logout$', 'django.contrib.auth.views.logout', name= 'logout' ),
     url( r'^user/(?P<username>\w+)$', 'accounts.views.user_page', name= 'user_page' ),
+
+        # Add/Remove Moderator Rights
+    url( r'^set_moderator/confirm/(?P<username>\w+)$', 'accounts.views.set_moderator_confirm', name= 'set_moderator_confirm' ),
     url( r'^set_moderator/(?P<username>\w+)$', 'accounts.views.set_moderator', name= 'set_moderator' ),
 
         # Remove Account
