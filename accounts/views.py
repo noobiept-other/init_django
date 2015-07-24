@@ -94,7 +94,7 @@ def message_send( request, username ):
             message = PrivateMessage( receiver= user, sender= request.user, title= title, content= content )
             message.save()
 
-            utilities.set_message( request, 'Message sent to {}!'.format( user.username ) )
+            utilities.set_message( request, 'Message sent to {}!'.format( user ) )
 
             return HttpResponseRedirect( user.get_url() )
 
@@ -218,10 +218,10 @@ def set_moderator( request, username ):
     user.save()
 
     if user.is_moderator:
-        message = "'{}' is now a moderator.".format( user.username )
+        message = "'{}' is now a moderator.".format( user )
 
     else:
-        message = "'{}' is not a moderator anymore.".format( user.username )
+        message = "'{}' is not a moderator anymore.".format( user )
 
     utilities.set_message( request, message )
 
@@ -271,7 +271,7 @@ def remove_user( request, username ):
         raise Http404( "User doesn't exist." )
 
     else:
-        utilities.set_message( request, "'{}' user removed!".format( user.username ) )
+        utilities.set_message( request, "'{}' user removed!".format( user ) )
         user.delete()
 
         return HttpResponseRedirect( reverse( 'home' ) )
@@ -330,10 +330,10 @@ def disable_user( request, username ):
 
 
         if value:
-            message = "'{}' account is now active.".format( user.username )
+            message = "'{}' account is now active.".format( user )
 
         else:
-            message = "'{}' account is now disabled.".format( user.username )
+            message = "'{}' account is now disabled.".format( user )
 
         utilities.set_message( request, message )
 

@@ -21,6 +21,9 @@ class Account( AbstractUser ):
     def how_many_unread_messages(self):
         return self.privatemessage_set.filter( has_been_read= False ).count()
 
+    def __str__(self):
+        return self.username
+
 
 class PrivateMessage( models.Model ):
 
@@ -39,3 +42,12 @@ class PrivateMessage( models.Model ):
 
     class Meta:
         ordering = [ '-date_created' ]
+
+    def get_date_created_number(self):
+        """
+            Time since the date it was created until the current time.
+            Returns a float, useful for comparisons/sorting/etc.
+        """
+        diff = timezone.now() - self.date_created
+
+        return diff.total_seconds()

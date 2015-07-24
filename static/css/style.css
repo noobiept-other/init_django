@@ -1,5 +1,10 @@
     /* Basic Elements */
 
+body
+    {
+    font-size: 24px;
+    }
+
 em
     {
     font-weight: bold;
@@ -74,6 +79,17 @@ em
     border-radius: 3px;
     box-shadow: 0 0 10px 0;
     padding: 5px;
+    }
+
+.SortTable-sortable
+    {
+    color: rgb(0, 0, 255);
+    cursor: pointer;
+    }
+
+.SortTable-sortable:hover
+    {
+    text-decoration: underline;
     }
 
 

@@ -36,6 +36,7 @@ else:
     SECRET_KEY = os.environ[ 'SECRET_KEY' ]
 
 
+# Hosts/domain names that are valid for this site; required if DEBUG is False
 ALLOWED_HOSTS = []
 
 
