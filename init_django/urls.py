@@ -5,12 +5,14 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.conf.urls import include, url
 from django.contrib import admin
 
+import start_app.views
+import accounts.urls
+
 
 urlpatterns = [
 
-    url( r'^$', 'start_app.views.home', name= 'home' ),
+    url( r'^$', start_app.views.home, name= 'home' ),
 
-    url( r'^accounts/', include( 'accounts.urls', namespace= 'accounts', app_name= 'accounts' ) ),
-
+    url( r'^accounts/', include( accounts.urls, namespace= 'accounts', app_name= 'accounts' ) ),
     url( r'^admin/', include( admin.site.urls ) ),
 ]
