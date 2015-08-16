@@ -7,6 +7,8 @@
     <meta charset="utf-8" />
     <title>Hi</title>
 
+    <script type="text/javascript" src="{% static 'js/website.js' %}"></script>
+
     {% block scripts %}{% endblock %}
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
@@ -27,7 +29,7 @@
 </div>
 
 {% if MESSAGE %}
-    <p id="Message">{{ MESSAGE }}</p>
+    <p id="Message" title="Click to Remove" onclick="WebSite.removeElement(this);">{{ MESSAGE }}</p>
 {% endif %}
 
 {% block content %}{% endblock %}

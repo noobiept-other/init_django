@@ -215,7 +215,7 @@ def set_moderator( request, username ):
         raise Http404( "User doesn't exist." )
 
     user.is_moderator = not user.is_moderator
-    user.save()
+    user.save( update_fields= [ 'is_moderator' ] )
 
     if user.is_moderator:
         message = "'{}' is now a moderator.".format( user )
@@ -319,14 +319,14 @@ def disable_user( request, username ):
         if user.is_staff:
             if request.user.is_staff:
                 user.is_active = value
-                user.save()
+                user.save( update_fields= [ 'is_active' ] )
 
             else:
                 return HttpResponseForbidden( "Can't disable a staff member." )
 
         else:
             user.is_active = value
-            user.save()
+            user.save( update_fields= [ 'is_active' ] )
 
 
         if value:
