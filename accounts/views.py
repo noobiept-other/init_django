@@ -112,7 +112,9 @@ def message_send( request, username ):
 
 @login_required
 def message_all( request ):
-
+    """
+        Show a list with all the private messages that were sent to the account.
+    """
     messages = request.user.privatemessage_set.all()
 
     paginator = Paginator( messages, 10 )

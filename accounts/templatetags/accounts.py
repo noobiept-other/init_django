@@ -7,7 +7,9 @@ register = template.Library()
 
 @register.filter
 def account_name( user ):
-
+    """
+        Adds a link to a user.
+    """
     if not user:
         return None
 
