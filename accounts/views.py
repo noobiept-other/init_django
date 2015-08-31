@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login as django_login
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from accounts.forms import MyUserCreationForm, PrivateMessageForm
 from accounts.models import PrivateMessage
@@ -114,10 +115,21 @@ def message_all( request ):
 
     messages = request.user.privatemessage_set.all()
 
-    context = {
-        'messages': messages
-    }
+    paginator = Paginator( messages, 10 )
+    page = request.GET.get( 'page' )
 
+    try:
+        paginatedMessages = paginator.page( page )
+
+    except PageNotAnInteger:
+        paginatedMessages = paginator.page( 1 )  # first page
+
+    except EmptyPage:
+        paginatedMessages = paginator.page( paginator.num_pages )  # last page
+
+    context = {
+        'messages': paginatedMessages
+    }
     utilities.get_messages( request, context )
 
     return render( request, 'accounts/check_messages.html', context )

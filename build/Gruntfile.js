@@ -31,6 +31,7 @@ grunt.initConfig({
                     'static/**',
                     'templates/**',
                     'manage.py',
+                    'Procfile',
                     'requirements.txt',
                     'runtime.txt'
                 ],
