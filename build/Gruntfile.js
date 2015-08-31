@@ -44,9 +44,9 @@ grunt.initConfig({
                 files: [
                     {
                         expand: true,
-                        cwd: dest + 'static/',
+                        cwd: dest + 'static/js/',
                         src: [ '**/*.js' ],
-                        dest: dest + 'static/'
+                        dest: dest + 'static/js/'
                     }
                 ]
             }
@@ -58,7 +58,7 @@ grunt.initConfig({
                 files: [{
                     expand: true,
                     cwd: dest + 'static/css/',
-                    src: 'style.css',
+                    src: [ '**/*.css' ],
                     dest: dest + 'static/css/'
                 }]
             }

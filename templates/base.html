@@ -28,9 +28,11 @@
     </ul>
 </div>
 
-{% if MESSAGE %}
-    <p id="Message" title="Click to Remove" onclick="WebSite.removeElement(this);">{{ MESSAGE }}</p>
-{% endif %}
+<div id="MessagesContainer">
+    {% for message in MESSAGES %}
+        <p class="Message Message-{{ message.type }}" title="Click to Remove" onclick="WebSite.removeElement(this);">{{ message.message }}</p>
+    {% endfor %}
+</div>
 
 {% block content %}{% endblock %}
 

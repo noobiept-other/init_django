@@ -13,6 +13,6 @@ def home( request ):
 
     }
 
-    utilities.get_message( request, context )
+    utilities.get_messages( request, context )
 
     return render( request, 'home.html', context )
